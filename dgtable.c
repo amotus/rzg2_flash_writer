@@ -47,6 +47,7 @@ const com_menu MonCom[COMMAND_UNIT] = {
 	"DDRCK"			, dgDdrTest			,  0	,
 	"RAMCK"			, dgRamTest			,  0	,
 #endif /* INTERNAL_MEMORY_ONLY == 0 */
+#if (DEBUG_COMMANDS == 1)
 	"D"			, dgDump			,  0	,
 	"DM"			, dgDumpMode			,  0	,
 	"M"			, dgMemEdit_byte		,  0	,
@@ -56,6 +57,7 @@ const com_menu MonCom[COMMAND_UNIT] = {
 	"F"			, dgFill_byte			,  0	,
 	"FL"			, dgFill_long			,  0	,
 	"FX"			, dgFill_longlong		,  0	,
+#endif /* DEBUG_COMMANDS */
 	TBL_END			, 0				,  0
 };
 

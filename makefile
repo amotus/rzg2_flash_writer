@@ -180,6 +180,11 @@ SWIZZLE  = T3BCUD2
 DEVICE_TYPE = 1
 endif
 
+# Set default value:
+ifeq ("$(DEBUG_COMMANDS)", "")
+DEBUG_COMMANDS = ENABLE
+endif
+
 # Select SERIAL_FLASH("ENABLE"or"DISABLE" )
 ifeq ("$(SERIAL_FLASH)", "")
 SERIAL_FLASH = ENABLE
@@ -314,6 +319,13 @@ ifeq ("$(SERIAL_FLASH)", "DISABLE")
 	CFLAGS += -DSERIAL_FLASH=0
 endif
 
+ifeq ("$(DEBUG_COMMANDS)", "ENABLE")
+	CFLAGS += -DDEBUG_COMMANDS=1
+endif
+ifeq ("$(DEBUG_COMMANDS)", "DISABLE")
+	CFLAGS += -DDEBUG_COMMANDS=0
+endif
+
 ifeq ("$(EMMC)", "ENABLE")
 	CFLAGS += -DEMMC=1
 endif
@@ -376,7 +388,6 @@ SRC_FILE :=				\
 	common.c			\
 	dgtable.c			\
 	dgmodul1.c			\
-	memory_cmd.c			\
 	Message.c			\
 	ramckmdl.c			\
 	cpudrv.c			\
@@ -385,6 +396,11 @@ SRC_FILE :=				\
 	sys/cpg.c			\
 	sys/pfc.c			\
 	sys/tzc_400.c
+
+ifeq ("$(DEBUG_COMMANDS)", "ENABLE")
+SRC_FILE +=				\
+	memory_cmd.c
+endif
 
 ifeq ("$(INTERNAL_MEMORY_ONLY)", "DISABLE")
 SRC_FILE +=				\

@@ -54,6 +54,7 @@ const char *const AllHelpMess[ALL_HELP_MESS_LINE] = {
 				" SP921600            Change Scif speed to 921600",
 				" RESET          Perform RESET of the CPU",
 				" H              help",
+#if (DEBUG_COMMANDS == 1)
 				" D  {sadr {eadr}}          memory dump  (DM sets dump size)",
 				" DM {B|W|L|X}              set&disp dump mode",
 				" M  [adr]                  set memory(BYTE)",
@@ -63,5 +64,6 @@ const char *const AllHelpMess[ALL_HELP_MESS_LINE] = {
 				" F  [sadr] [eadr] [data]   fill memory",
 				" FL [sadr] [eadr] [data]   fill memory(LONG)",
 				" FX [sadr] [eadr] [data]   fill memory(LONG LONG)",
+#endif /* DEBUG_COMMANDS */
 				MESSAGE_END,
 };

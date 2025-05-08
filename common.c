@@ -387,6 +387,8 @@ void *memcpy(void *dst, const void *src, size_t len)
 	return dst;
 }
 
+#if (DEBUG_COMMANDS == 1)
+
 /*********************************************************/
 /* Hex Ascii str -> HexData                              */
 /*********************************************************/
@@ -632,6 +634,8 @@ int32_t	GetStr_MemEd(char *str, char *chCnt)
 	PutChar(CR_CODE);
 	return(0);
 }
+
+#endif /* DEBUG_COMMANDS */
 
 char HexAscii2Data_64(unsigned char *buf, uintptr_t *data)
 {
