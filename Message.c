@@ -23,11 +23,13 @@ const char *const StartMessMonitorV2[START_MESS_MON_LINE] = {
 				MESSAGE_END,
 };
 
+#if (RZA3UL == 1)
 const char *const StartMessMonitorA[START_MESS_MON_LINE] = {
 				"Flash writer for RZ/A Series "
 				WRITER_VERSION " " WRITER_DATE,
 				MESSAGE_END,
 };
+#endif
 
 const char *const AllHelpMess[ALL_HELP_MESS_LINE] = {
 #if SERIAL_FLASH == 1
