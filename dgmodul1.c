@@ -64,34 +64,26 @@ int32_t	GetStr_ByteCount(char *str,uint32_t getByteCount)
 	*str = 0;
 }
 
-/****************************************************************
-	MODULE		: dgScifSpeedUp				*
-	FUNCTION	: Scif speed UP	Change 921.6kbps	*
-	COMMAND		: SUP					*
-	INPUT PARAMETER	: SUP					*
-*****************************************************************/
-void	dgScifSpeedUp(void)
+#define SCIF_SPEED_MSG "Setting SCIF speed to: "
+
+static void dgScifSpeed(int baud)
 {
-	PutStr("Scif speed UP",1);
-	PutStr("Please change to 921.6Kbps baud rate setting of the terminal.",1);
+	PutStr(">", 1);
 	WaitPutCharSendEnd();
 
-	InitScif0_SCIFCLK(921600);
+	InitScif0_SCIFCLK(baud);
 }
 
-/****************************************************************
-	MODULE		: dgScifSpeedDown			*
-	FUNCTION	: Scif speed Down	Change 115.2kbps*
-	COMMAND		: SDP					*
-	INPUT PARAMETER	: SDP					*
-*****************************************************************/
-void	dgScifSpeedDown(void)
+void dgScifSpeed115200(void)
 {
-	PutStr("Scif speed DOWN",1);
-	PutStr("Please change to 115.2Kbps baud rate setting of the terminal.",1);
-	WaitPutCharSendEnd();
+	PutStr(SCIF_SPEED_MSG "115200", 1);
+	dgScifSpeed(115200);
+}
 
-	InitScif0_SCIFCLK(115200);
+void dgScifSpeed921600(void)
+{
+	PutStr(SCIF_SPEED_MSG "921600", 1);
+	dgScifSpeed(921600);
 }
 
 void	dgReset(void)

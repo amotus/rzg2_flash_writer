@@ -6,6 +6,6 @@
 
 void dgHelp(void);
 int32_t GetStr_ByteCount(char *str,uint32_t getByteCount);
-void dgScifSpeedUp(void);
-void dgScifSpeedDown(void);
+void dgScifSpeed115200(void);
+void dgScifSpeed921600(void);
 void dgReset(void);

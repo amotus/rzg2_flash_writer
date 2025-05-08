@@ -48,8 +48,8 @@ const char *const AllHelpMess[ALL_HELP_MESS_LINE] = {
 				" EM_E           erase program to eMMC",
 				"",
 #endif /* EMMC == 1 */
-				" SUP            Scif speed UP (Change to speed up baud rate setting)",
-				" SUD            Scif speed DOWN (Change to speed down baud rate setting)",
+				" SP115200            Change Scif speed to 115200",
+				" SP921600            Change Scif speed to 921600",
 				" RESET          Perform RESET of the CPU",
 				" H              help",
 				" D  {sadr {eadr}}          memory dump  (DM sets dump size)",
