@@ -155,22 +155,24 @@ void InitScif0_SCIFCLK(uint32_t baudrate)
 	*((volatile uint8_t*)SCIF0_SEMR) = 0x00U;
 	SoftDelay(100);
 
-	if (baudrate == 115200)
-	{
-		*((volatile uint8_t*)SCIF0_BRR)  = 0x1AU;	/* 115200bps */
+	switch (baudrate) {
+	case 115200:
+		*((volatile uint8_t*)SCIF0_BRR)  = 26;
+		break;
+	case 921600:
+		*((volatile uint8_t*)SCIF0_BRR)  = 1;
+		break;
 	}
-	else
-	{
-		*((volatile uint8_t*)SCIF0_BRR)  = 0x01U;	/* 921600bps */
-	}
+
 	*((volatile uint8_t*)SCIF0_SEMR) = 0x30U;
-	if (baudrate == 115200)
-	{
-		*((volatile uint8_t*)SCIF0_MDDR) = 0xFFU;	/* 115200bps */
-	}
-	else
-	{
-		*((volatile uint8_t*)SCIF0_MDDR) = 0x97U;	/* 921600bps */
+
+	switch (baudrate) {
+	case 115200:
+		*((volatile uint8_t*)SCIF0_MDDR) = 255;
+		break;
+	case 921600:
+		*((volatile uint8_t*)SCIF0_MDDR) = 151;
+		break;
 	}
 
 	SoftDelay(100);
