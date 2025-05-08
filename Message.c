@@ -49,6 +49,8 @@ const char *const AllHelpMess[ALL_HELP_MESS_LINE] = {
 				"",
 #endif /* EMMC == 1 */
 				" SP115200            Change Scif speed to 115200",
+				" SP230400            Change Scif speed to 230400",
+				" SP460800            Change Scif speed to 460800",
 				" SP921600            Change Scif speed to 921600",
 				" RESET          Perform RESET of the CPU",
 				" H              help",

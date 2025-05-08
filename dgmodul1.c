@@ -80,6 +80,18 @@ void dgScifSpeed115200(void)
 	dgScifSpeed(115200);
 }
 
+void dgScifSpeed230400(void)
+{
+	PutStr(SCIF_SPEED_MSG "230400", 1);
+	dgScifSpeed(230400);
+}
+
+void dgScifSpeed460800(void)
+{
+	PutStr(SCIF_SPEED_MSG "460800", 1);
+	dgScifSpeed(460800);
+}
+
 void dgScifSpeed921600(void)
 {
 	PutStr(SCIF_SPEED_MSG "921600", 1);

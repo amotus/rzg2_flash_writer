@@ -159,6 +159,12 @@ void InitScif0_SCIFCLK(uint32_t baudrate)
 	case 115200:
 		*((volatile uint8_t*)SCIF0_BRR)  = 26;
 		break;
+	case 230400:
+		*((volatile uint8_t*)SCIF0_BRR)  = 12;
+		break;
+	case 460800:
+		*((volatile uint8_t*)SCIF0_BRR)  = 5;
+		break;
 	case 921600:
 		*((volatile uint8_t*)SCIF0_BRR)  = 1;
 		break;
@@ -169,6 +175,12 @@ void InitScif0_SCIFCLK(uint32_t baudrate)
 	switch (baudrate) {
 	case 115200:
 		*((volatile uint8_t*)SCIF0_MDDR) = 255;
+		break;
+	case 230400:
+		*((volatile uint8_t*)SCIF0_MDDR) = 245;
+		break;
+	case 460800:
+		*((volatile uint8_t*)SCIF0_MDDR) = 226;
 		break;
 	case 921600:
 		*((volatile uint8_t*)SCIF0_MDDR) = 151;

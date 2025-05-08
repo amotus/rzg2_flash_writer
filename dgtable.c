@@ -39,6 +39,8 @@ const com_menu MonCom[COMMAND_UNIT] = {
 	"EM_E"			, &dg_emmc_erase		,  0	,
 #endif /* EMMC == 1 */
 	"SP115200"		, dgScifSpeed115200		,  0	,
+	"SP230400"		, dgScifSpeed230400		,  0	,
+	"SP460800"		, dgScifSpeed460800		,  0	,
 	"SP921600"		, dgScifSpeed921600		,  0	,
 	"RESET"			, dgReset			,  0	,
 #if INTERNAL_MEMORY_ONLY == 0
