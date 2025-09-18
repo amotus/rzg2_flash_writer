@@ -103,7 +103,7 @@ void StartMess( void )
 	{
 		case RZG2L_DEVID:
 			PutMess(StartMessMonitorG2);
-			PutStr(" Product Code : ", 0);
+			PutStr("Device code: ", 0);
 #if (RZG2L == 1)
 			PutStr("RZ/G2L" ,1);
 #endif
