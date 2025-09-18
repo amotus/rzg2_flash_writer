@@ -202,12 +202,13 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 	int8_t buf[16];
 	int8_t motLoad = 1;
 	int8_t oldPartitionConfig;
-
+#ifdef HELP_MSG
 	static const int8_t startMessage[][32] = {"EM_W Start --------------",
 					   "EM_WB Start --------------"};
 
 	static const int8_t endMessage[][32] =	{"EM_W Complete!",
 					 "EM_WB Complete!"};
+#endif /* HELP_MSG */
 
 	result = dg_emmc_check_init();
 	if (EMMC_SUCCESS != result)
@@ -216,7 +217,9 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 		return;
 	}
 
+#ifdef HELP_MSG
 	PutStr(startMessage[wc], 1);
+#endif /* HELP_MSG */
 
 //sector data disp
 	SetSectorData( &sectorData );
@@ -234,15 +237,21 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 	{
 		case EMMC_PARTITION_USER_AREA:		//User Partition Area Program
 			Load_workEndAdd		= (uint32_t*)EMMC_WORK_DRAM_EADD_512M;
+#ifdef HELP_MSG
 			PutStr("-- User Partition Area Program --------------------------",1);
+#endif /* HELP_MSG */
 		break;
 		case EMMC_PARTITION_BOOT_1:		//Boot Partition 1 Program
 			Load_workEndAdd		= (uint32_t*)EMMC_WORK_DRAM_EADD_16M;
+#ifdef HELP_MSG
 			PutStr("-- Boot Partition 1 Program -----------------------------",1);
+#endif /* HELP_MSG */
 		break;
 		case EMMC_PARTITION_BOOT_2:		//Boot Partition 2 Program
 			Load_workEndAdd		= (uint32_t*)EMMC_WORK_DRAM_EADD_16M;
+#ifdef HELP_MSG
 			PutStr("-- Boot Partition 2 Program -----------------------------",1);
+#endif /* HELP_MSG */
 		break;
 	}
 
@@ -270,11 +279,15 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 	switch( partitionArea)
 	{
 		case EMMC_PARTITION_USER_AREA:		//User Partition Area Program
+#ifdef HELP_MSG
 			PutStr("Work RAM(H'50000000-H'6FFFFFFF) Clear....",1);
+#endif /* HELP_MSG */
 			FillData32Bit((uint32_t *)Load_workStartAdd,(uint32_t *)Load_workEndAdd,0x00000000);
 		break;
 		default:
+#ifdef HELP_MSG
 			PutStr("Work RAM(H'50000000-H'50FFFFFF) Clear....",1);
+#endif /* HELP_MSG */
 			FillData32Bit((uint32_t *)Load_workStartAdd,(uint32_t *)Load_workEndAdd,0x00000000);
 		break;
 	}
@@ -291,7 +304,7 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 		{
 			return;
 		}
-		PutStr("please send binary file!",1);
+		PutStr("Send binary file", 1);
 
 		dg_emmc_write_bin_serial(Load_workStartAdd, fileSize);
 
@@ -355,7 +368,9 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 
 	SETR_32( SD_SIZE, EMMC_BLOCK_LENGTH );
 // Write eMMC
+#ifdef HELP_MSG
 	PutStr("SAVE -FLASH.......",1);
+#endif /* HELP_MSG */
 	//emmc_write_sector
 	result = emmc_write_sector( Load_workStartAdd, sectorStartAddress, SecCnt, flags );
 	if (result != EMMC_SUCCESS)
@@ -365,7 +380,11 @@ void	dg_emmc_write(EMMC_WRITE_COMMAND wc)
 	}
 
 // Change original EXT_CSD
+
+#ifdef HELP_MSG
 	PutStr(endMessage[wc], 1);
+#endif /* HELP_MSG */
+	PutStr("Done", 1);
 }
 
 /****************************************************************
@@ -435,7 +454,7 @@ void	dg_emmc_erase(void)
 		return;
 	}
 
-	PutStr("EM_E Start --------------",1);
+	PutStr("EM_E Start...",1);
 
 //sector data disp
 	SetSectorData( &sectorData );
@@ -448,6 +467,7 @@ void	dg_emmc_erase(void)
 		return;
 	}
 
+#ifdef HELP_MSG
 	switch(partitionArea)
 	{
 		case EMMC_PARTITION_USER_AREA:		//User Partition Area Erase
@@ -460,6 +480,8 @@ void	dg_emmc_erase(void)
 			PutStr("-- Boot Partition 2 Erase -----------------------------",1);
 		break;
 	}
+#endif /* HELP_MSG */
+
 // Select Partition
 	result = emmc_select_partition( partitionArea );
 	if (result != EMMC_SUCCESS)
@@ -656,11 +678,11 @@ static uint32_t InputEmmcSector( EMMC_PARTITION partitionArea, uint32_t maxSecto
 	{
 		if (EMMC_INPUT_SECTOR_ADDRESS == loop)
 		{
-			PutStr("Please Input Start Address in sector :",0);
+			PutStr("Enter sector start address: ", 0);
 		}
 		else
 		{
-			PutStr("Please Input Size in sector :",0);
+			PutStr("Enter sector size: ", 0);
 		}
 
 		wrData = 0xFFFFFFFFU;
@@ -747,7 +769,9 @@ static uint32_t InputEmmcSectorArea( EMMC_PARTITION *partitionArea )
 	loop = 1;
 	while(loop)
 	{
+#ifdef HELP_MSG
 		PutStr("  Select area(0-2)>",0);
+#endif /* HELP_MSG */
 		GetStr(str,&chCnt);
 		chPtr = 0;
 		if (!GetStrBlk(str,buf,&chPtr,0))
@@ -813,7 +837,7 @@ static uint32_t InputEmmcPrgStartAdd( uint32_t *prgStartAdd )
 	loop = 1;
 	while(loop)
 	{
-		PutStr("Please Input Program Start Address : ",0);
+		PutStr("Select Program Start Address: ",0);
 		GetStr(key,&chCnt);
 		chPtr = 0;
 		if (!GetStrBlk(key,buf,&chPtr,0))
@@ -869,7 +893,7 @@ static uint32_t InputFileSize( uint32_t *fileSize )
 	loop = 1;
 	while(loop)
 	{
-		PutStr("Please Input File size(byte) : ",0);
+		PutStr("Enter file size (bytes): ", 0);
 		GetStr(str,&chCnt);
 		chPtr = 0;
 		if (!GetStrBlk(str,buf,&chPtr,0))
@@ -971,9 +995,9 @@ static void DispAreaData(EMMC_SECTOR sectorData)
 	int8_t str[64];
 	int32_t chCnt;
 
-	PutStr("---------------------------------------------------------",1);
-	PutStr("Please select,eMMC Partition Area.",1);
+	PutStr("Enter eMMC partition area: ", 0);
 
+#ifdef HELP_MSG
 	for (loop = EMMC_PARTITION_USER_AREA; loop < EMMC_PARTITION_MAX; loop++)
 	{
 		if (EMMC_PARTITION_USER_AREA == loop)
@@ -995,7 +1019,5 @@ static void DispAreaData(EMMC_SECTOR sectorData)
 		Hex2Ascii((sectorData.maxSectorCount[loop] - 1),str,&chCnt);
 		PutStr(str,1);
 	}
-
-	PutStr("---------------------------------------------------------",1);
-
+#endif /* HELP_MSG */
 }

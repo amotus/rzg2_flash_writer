@@ -814,11 +814,11 @@ static uint32_t InputExtCsdParam( uint32_t *index, uint32_t *value )
 	{
 		if (EMMC_EXT_CSD_INPUT_INDEX == loop)
 		{
-			PutStr("  Please Input EXT_CSD Index(H'00 - H'1FF) :", 0);
+			PutStr("Enter EXT_CSD index: ", 0);
 		}
 		else
 		{
-			PutStr("  Please Input Value(H'00 - H'FF) :", 0);
+			PutStr("Enter value: ", 0);
 		}
 
 		GetStr(key,&chCnt);
