@@ -362,58 +362,54 @@ void dgDdrTest(void)
 {
 	uint32_t readData;
 
-	PutStr("=== DDR R/W CHECK ====",1);
-#if (RZG2L == 1)
-	PutStr("=== RZ/G2L (Memory controller is only channel 1) ===",1);
-#elif (RZG2LC == 1)
-	PutStr("=== RZ/G2LC (Memory controller is only channel 1) ===",1);
-#endif
+	PutStr("DDR R/W CHECK", 1);
+
 	readData = *((volatile uint32_t*)0x000000041000000);	//Access Check
-	PutStr("Check:0x00_41000000 ... ",0);
+	PutStr("Check: 0x00_41000000: ", 0);
 	if (CkExtendDdrRamCheck((void*)0x000000041000000))
 	{
-		PutStr(" Fail!",1);
+		PutStr("failure", 1);
 		PutDdrErrInfo();
 		return;
 	}
 	else
 	{
-		PutStr(" Pass!",1);
+		PutStr("pass", 1);
 	}
 #if (DDR_SIZE_1GB == 0) && (DDR_SIZE_1GB_1PCS == 0) && (DDR_SIZE_512MB_1PCS == 0)
-	PutStr("Check:0x00_80000000 ... ",0);
+	PutStr("Check: 0x00_80000000:", 0);
 	if (CkExtendDdrRamCheck((void*)0x000000080000000))
 	{
-		PutStr(" Fail!",1);
+		PutStr("failure", 1);
 		PutDdrErrInfo();
 		return;
 	}
 	else
 	{
-		PutStr(" Pass!",1);
+		PutStr("pass", 1);
 	}
 #if (DDR_SIZE_4GB == 1)
-	PutStr("Check:0x00_c0000000 ... ",0);
+	PutStr("Check: 0x00_c0000000: ", 0);
 	if (CkExtendDdrRamCheck((void*)0x0000000c0000000))
 	{
-		PutStr(" Fail!",1);
+		PutStr("failure", 1);
 		PutDdrErrInfo();
 		return;
 	}
 	else
 	{
-		PutStr(" Pass!",1);
+		PutStr("pass",1);
 	}
-	PutStr("Check:0x01_00000000 ... ",0);
+	PutStr("Check: 0x01_00000000: ", 0);
 	if (CkExtendDdrRamCheck((void*)0x000000100000000))
 	{
-		PutStr(" Fail!",1);
+		PutStr("failure",1);
 		PutDdrErrInfo();
 		return;
 	}
 	else
 	{
-		PutStr(" Pass!",1);
+		PutStr("pass",1);
 	}
 #endif
 #endif
