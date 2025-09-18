@@ -450,14 +450,14 @@ void	dg_emmc_erase(void)
 
 	switch(partitionArea)
 	{
-		case EMMC_PARTITION_USER_AREA:		//User Partition Area Program
-			PutStr("-- User Partition Area Program --------------------------",1);
+		case EMMC_PARTITION_USER_AREA:		//User Partition Area Erase
+			PutStr("-- User Partition Area Erase --------------------------",1);
 		break;
-		case EMMC_PARTITION_BOOT_1:		//Boot Partition 1 Program
-			PutStr("-- Boot Partition 1 Program -----------------------------",1);
+		case EMMC_PARTITION_BOOT_1:		//Boot Partition 1 Erase
+			PutStr("-- Boot Partition 1 Erase -----------------------------",1);
 		break;
-		case EMMC_PARTITION_BOOT_2:		//Boot Partition 2 Program
-			PutStr("-- Boot Partition 2 Program -----------------------------",1);
+		case EMMC_PARTITION_BOOT_2:		//Boot Partition 2 Erase
+			PutStr("-- Boot Partition 2 Erase -----------------------------",1);
 		break;
 	}
 // Select Partition
