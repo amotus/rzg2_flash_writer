@@ -473,21 +473,19 @@ CL = rm -rf
 # Command
 
 .PHONY: all
-all: $(OBJECT_DIR) $(OUTPUT_DIR) $(OBJ_FILE_BOOT) $(OBJ_FILE) $(OUTPUT_FILE) $(MEMORY_DEF)
+all: $(OBJ_FILE_BOOT) $(OBJ_FILE) $(OUTPUT_FILE) $(MEMORY_DEF)
 
 #------------------------------------------
 # Make Directory
 #------------------------------------------
-$(OBJECT_DIR):
-	-mkdir "$(OBJECT_DIR)"
-
 $(OUTPUT_DIR):
-	-mkdir "$(OUTPUT_DIR)"
+	@mkdir -p "$(OUTPUT_DIR)"
 
 #------------------------------------------
 # Compile
 #------------------------------------------
 $(OBJECT_DIR)/%.o:$(BOOTDIR)/%.s
+	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi
 	$(AS)  -g $(CPU) $(AS_NEON) --MD $(patsubst %.o,%.d,$@) -I $(BOOTDIR) -I $(INCLUDE_DIR) -I $(DDR_COMMON) -I $(DDR_SOC) $< -o $@ --defsym $(AArch32_64)=0 --defsym $(BOOT_DEF)=0 --defsym $(TOOL_DEF)=0
 
 $(OBJECT_DIR)/%.o:%.c
@@ -501,7 +499,7 @@ $(OBJECT_DIR)/%.def:%.def.s
 #------------------------------------------
 # Linker
 #------------------------------------------
-$(OUTPUT_FILE): $(OBJ_FILE_BOOT) $(OBJ_FILE) $(MEMORY_DEF)
+$(OUTPUT_FILE): $(OBJ_FILE_BOOT) $(OBJ_FILE) $(MEMORY_DEF) | $(OUTPUT_DIR)
 	$(LD) $(OBJ_FILE_BOOT) $(OBJ_FILE) 	\
 	-T '$(MEMORY_DEF)'			\
 	-o '$(OUTPUT_FILE)'			\
